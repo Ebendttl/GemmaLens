@@ -1,0 +1,424 @@
+:root {
+  /* Premium Dark Mode HSL Palette */
+  --bg-dark: hsl(230, 15%, 8%);
+  --bg-panel: hsl(230, 15%, 12%);
+  --bg-elevated: hsl(230, 15%, 16%);
+  
+  --text-primary: hsl(0, 0%, 98%);
+  --text-secondary: hsl(230, 10%, 65%);
+  
+  --accent-primary: hsl(250, 100%, 75%);
+  --accent-secondary: hsl(280, 100%, 70%);
+  --accent-gradient: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  
+  --border-color: hsl(230, 15%, 20%);
+  --border-glow: hsla(250, 100%, 75%, 0.2);
+  
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --border-radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  height: 100vh;
+  overflow: hidden;
+  background-image: 
+    radial-gradient(circle at 15% 50%, hsla(250, 100%, 75%, 0.05), transparent 25%),
+    radial-gradient(circle at 85% 30%, hsla(280, 100%, 70%, 0.05), transparent 25%);
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* Header */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+  background: rgba(var(--bg-panel), 0.7);
+  backdrop-filter: blur(12px);
+  z-index: 10;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-icon-wrapper {
+  background: var(--accent-gradient);
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-icon {
+  color: var(--bg-dark);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.logo h1 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.highlight {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.api-key-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+input[type="password"], textarea {
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  transition: var(--transition-smooth);
+}
+
+input[type="password"]:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px var(--border-glow);
+}
+
+#save-key-btn {
+  background-color: var(--bg-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition-smooth);
+}
+
+#save-key-btn:hover {
+  background-color: var(--border-color);
+}
+
+/* Split Pane Layout */
+.split-pane {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.pane {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.left-pane {
+  border-right: 1px solid var(--border-color);
+  max-width: 450px;
+  gap: 1.5rem;
+}
+
+.right-pane {
+  background-color: var(--bg-panel);
+}
+
+.input-header h2, .output-header-title h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.input-header p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Dropzone */
+.dropzone {
+  border: 2px dashed var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  background-color: var(--bg-panel);
+  position: relative;
+  overflow: hidden;
+}
+
+.dropzone:hover, .dropzone.dragover {
+  border-color: var(--accent-primary);
+  background-color: var(--bg-elevated);
+}
+
+.dropzone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.upload-icon {
+  color: var(--accent-primary);
+  margin-bottom: 0.5rem;
+}
+
+.dropzone h3 {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.dropzone p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+/* Image Preview */
+.preview-container {
+  position: relative;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  display: none; /* Hidden by default */
+}
+
+#image-preview {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.icon-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: var(--transition-smooth);
+}
+
+.icon-btn:hover {
+  background: var(--accent-primary);
+}
+
+/* Prompt Area */
+.prompt-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.prompt-container label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+#prompt-input {
+  flex: 1;
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+/* Primary Button */
+.primary-btn {
+  background: var(--accent-gradient);
+  color: var(--bg-dark);
+  border: none;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px var(--border-glow);
+}
+
+.primary-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.loader {
+  border: 2px solid rgba(0,0,0,0.2);
+  border-left-color: var(--bg-dark);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  display: none; /* Hidden by default */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Output Area */
+.output-header {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.output-header-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.status-badge {
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  transition: var(--transition-smooth);
+}
+
+.status-badge.active {
+  color: var(--accent-primary);
+  border-color: var(--border-glow);
+  box-shadow: 0 0 10px var(--border-glow);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 var(--border-glow); }
+  70% { box-shadow: 0 0 0 10px rgba(0,0,0,0); }
+  100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); }
+}
+
+.output-content {
+  flex: 1;
+  overflow-y: auto;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.empty-state {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-state .sub-text {
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  opacity: 0.7;
+}
+
+/* Markdown Styles */
+.markdown-body {
+  color: var(--text-primary);
+}
+
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.markdown-body p {
+  margin-bottom: 1rem;
+}
+
+.markdown-body pre {
+  background-color: var(--bg-dark) !important;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+.markdown-body code {
+  font-family: var(--font-mono);
+  background-color: var(--bg-dark);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: var(--accent-primary);
+}
+
+.markdown-body pre code {
+  background-color: transparent;
+  padding: 0;
+  color: var(--text-primary);
+}
+
+.markdown-body ul, .markdown-body ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.markdown-body li {
+  margin-bottom: 0.5rem;
+}

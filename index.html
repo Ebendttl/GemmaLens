@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="GemmaLens - 128K Context Architecture Assistant" />
+    <title>GemmaLens | 128K Context Architect</title>
+    <!-- Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <header class="navbar">
+        <div class="logo">
+          <div class="logo-icon-wrapper">
+            <span class="logo-icon">✧</span>
+          </div>
+          <h1>Gemma<span class="highlight">Lens</span></h1>
+        </div>
+        <div class="api-key-container">
+          <input type="password" id="api-key-input" placeholder="Google AI Studio Key" />
+          <button id="save-key-btn">Save</button>
+        </div>
+      </header>
+
+      <main class="split-pane">
+        <!-- Left Pane: Input -->
+        <section class="pane left-pane">
+          <div class="input-header">
+            <h2>Context & Ingestion</h2>
+            <p>Leverage 128K Context & Multimodal Vision</p>
+          </div>
+          
+          <div class="dropzone" id="dropzone">
+            <div class="dropzone-content">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="upload-icon"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <h3>Drag & Drop Architecture Diagram</h3>
+              <p>Supports PNG, JPG, WEBP</p>
+            </div>
+            <input type="file" id="file-upload" accept="image/*" hidden />
+          </div>
+
+          <div class="preview-container" id="preview-container">
+            <img id="image-preview" src="" alt="Architecture Diagram Preview" />
+            <button id="remove-image-btn" class="icon-btn" aria-label="Remove image">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+
+          <div class="prompt-container">
+            <label for="prompt-input">Engineering Prompt</label>
+            <textarea id="prompt-input" placeholder="e.g., Analyze this architecture diagram. Identify single points of failure and generate a Terraform boilerplate to deploy this on AWS."></textarea>
+          </div>
+
+          <button id="analyze-btn" class="primary-btn">
+            <span class="btn-text">Run Multimodal Analysis (31B Dense)</span>
+            <div class="loader" id="btn-loader"></div>
+          </button>
+        </section>
+
+        <!-- Right Pane: Output -->
+        <section class="pane right-pane">
+          <div class="output-header">
+            <div class="output-header-title">
+              <h2>Gemma 4 Reasoning Engine</h2>
+              <div class="status-badge" id="model-status">Idle</div>
+            </div>
+          </div>
+          <div class="output-content" id="output-content">
+            <div class="empty-state">
+              <span class="empty-icon">⌘</span>
+              <p>Awaiting context ingestion.</p>
+              <p class="sub-text">Gemma 4 will process up to 128K tokens and provide architectural analysis here.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
